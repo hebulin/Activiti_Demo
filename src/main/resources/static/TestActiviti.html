@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试activiti流程</title>
+    <script src="../static/js/jquery-3.4.1.js"></script>
+    <script>
+        const url = 'http://localhost:8080/testcontroller/';
+
+        function queryAllAct() {
+            $.post(url + "queryAllAct", function (json) {
+                document.getElementById("text_span").innerText = json;
+            });
+        }
+
+        function startActiviti() {
+            var proDefId = document.getElementById("proDefId").value;
+
+            $.post(url + "startAct?proDefId=" + proDefId, function (json) {
+                document.getElementById("text_span").innerText = json;
+            });
+        }
+
+        function queryUnDoActiviti() {
+            var userId_query = document.getElementById("userId_query").value;
+
+            $.post(url + "taskAgents?user=" + userId_query, function (json) {
+                document.getElementById("text_span").innerText = json;
+            });
+        }
+
+        function completeActiviti() {
+            var actId = document.getElementById("actId").value;
+            var userId_complete = document.getElementById("userId_complete").value;
+            var taskId = document.getElementById("taskId").value;
+
+            $.post(url + "approvalProcess?actId=" + actId + "&&userId=" + userId_complete + "&&taskId=" + taskId, function (json) {
+                document.getElementById("text_span").innerText = json;
+            });
+        }
+
+        function queryDoActiviti() {
+            var userId_do = document.getElementById("userId_do").value;
+
+            $.post(url + "hasToDoTasks?user=" + userId_do, function (json) {
+                document.getElementById("text_span").innerText = json;
+            });
+        }
+
+        function image() {
+            var pro_ins_id = document.getElementById("pro_ins_id").value;
+
+            $.post(url + "image?processInstanceId=" + pro_ins_id, function (json) {
+            });
+            window.open("http://localhost:8080/testcontroller/image?processInstanceId=" + pro_ins_id);
+        }
+
+        // /**
+        //  * 测试方法
+        //  */
+        // function testButton() {
+        //     var userId_do = document.getElementById("userId_do").value;
+        //     $.post('http://localhost:8080/testcontroller/testReturn?user=' + userId_do, function (json) {
+        //         document.getElementById("text_span").innerText = json;
+        //     });
+        // }
+
+    </script>
+</head>
+<body>
+<!--a<input id="text_a"></input>-->
+<!--b<input id="text_b"></input>-->
+<!--<button onclick="testButton()">测试按钮</button>-->
+<!--<br>-->
+<!--<br>-->
+<!--结果:-->
+<!--<br>-->
+<!--<br>-->
+<!--<span id="text_span"></span>-->
+<!--<div style="background-color: darkgray;height: 2px;width: 100%;"></div>-->
+<div id="activiti_Dody">
+    <span style="font-size: 20px;">activiti测试</span>
+    <br>
+    <div class="div-ac">
+        <button onclick="queryAllAct()">查询所有流程</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac">
+        输入要启动的流程定义ID：<br><input class="inputAct" id="proDefId"></input><br><br>
+        <button onclick="startActiviti()">启动新流程</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac">
+        输入要查询的用户：<br><input class="inputAct" id="userId_query"></input><br><br>
+        <button class="button-ac" onclick="queryUnDoActiviti()">查询待办任务</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac">
+        流程ID：<br><input class="inputAct" id="actId"></input><br>
+        审批人：<br><input class="inputAct" id="userId_complete"></input><br>
+        任务ID：<br><input class="inputAct" id="taskId"></input><br><br>
+        <button onclick="completeActiviti()">执行审批任务</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac">
+        输入要查询的用户：<br><input class="inputAct" id="userId_do"></input><br><br>
+        <button onclick="queryDoActiviti()">查询已办任务</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac div-imageShow">
+        流程实例ID：<br><input class="inputAct" id="pro_ins_id"></input><br><br>
+        <button onclick="image()">查看流程图</button>
+    </div>
+    <div class="split-line-div"></div>
+    <div class="div-ac div-result">
+        执行结果:
+        <br>
+        <br>
+        <span id="text_span"></span>
+    </div>
+</div>
+</body>
+<style>
+    .div-ac {
+        margin-left: 30%;
+        margin-top: 20px;
+        border: aqua;
+    }
+
+    .button-ac {
+        margin-right: 15px;
+    }
+
+    .inputAct {
+    }
+
+    .split-line-div {
+        background-color: darkgray;
+        height: 2px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .div-result {
+        border: 1px black solid;
+        border-radius: 10px;
+        margin-right: 30%;
+        height: auto;
+        padding: 3px;
+        width: 400px;
+    }
+
+    #text_span {
+        font-family: "Bookman Old Style";
+        font-size: 5px;
+    }
+
+    .div-imageShow {
+        border: 2px solid red;
+        width: 300px;
+    }
+</style>
+</html>
