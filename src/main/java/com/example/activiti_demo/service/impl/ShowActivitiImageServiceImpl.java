@@ -170,9 +170,12 @@ public class ShowActivitiImageServiceImpl implements ShowActivitiImageService {
                 // 已执行的线集合
                 List<String> flowIds = getHighLightedFlows(bpmnModel, processDefinitionEntity, resultHistoricActivityInstanceList);
                 // 获取流程图图像字符流
-                ProcessDiagramGenerator pec = processEngine.getProcessEngineConfiguration().getProcessDiagramGenerator();
+                ProcessDiagramGenerator pec = processEngine.getProcessEngineConfiguration()
+                        .getProcessDiagramGenerator();
                 //配置字体
-                imageStream = pec.generateDiagram(bpmnModel, "png", resultExecutedActivityIdList, flowIds, "宋体", "宋体", "宋体", null, 2.0);
+                imageStream = pec.generateDiagram(bpmnModel,
+                        "png", resultExecutedActivityIdList, flowIds,
+                        "宋体", "宋体", "宋体", null, 2.0);
                 response.setContentType("image/png");
                 OutputStream os = response.getOutputStream();
                 int bytesRead = 0;
