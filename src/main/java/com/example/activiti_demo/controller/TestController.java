@@ -221,6 +221,4 @@ public class TestController {
                       @RequestParam String processInstanceId) {
         showActivitiImageService.getActivitiImg1(processInstanceId, response);
     }
-
-
 }
