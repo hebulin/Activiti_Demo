@@ -7,6 +7,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
@@ -106,6 +107,8 @@ public class TestController {
      */
     @RequestMapping("/startAct")
     public String startAct(@Param("proDefId") String proDefId) {
+        // 设置流程启动者
+//        Authentication.setAuthenticatedUserId(String.valueOf("userId"));
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(proDefId);
         System.out.println(processInstance.getId());
         return "新的审批流程实例启动，流程实例id：" + processInstance.getId();

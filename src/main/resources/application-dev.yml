@@ -29,3 +29,8 @@ mybatis-plus:
       id-type: auto
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 输出工作流操作数据库的sql日志
+logging:
+  level:
+    org.activiti.engine.impl.persistence.entity: debug
