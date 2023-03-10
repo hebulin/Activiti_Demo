@@ -15,6 +15,7 @@ import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,10 +99,24 @@ public class ShowActivitiImageServiceImpl implements ShowActivitiImageService {
         if (processInstance != null) {
             currentActs = runtimeService.getActiveActivityIds(processInstance.getId());
         }
-        return processEngine.getProcessEngineConfiguration()
+
+        // activiti 6.0.0版本写法
+        /*return processEngine.getProcessEngineConfiguration()
                 .getProcessDiagramGenerator()
                 .generateDiagram(model, "png", currentActs, new ArrayList<String>(),
-                        fontName, fontName, fontName, null, 1.0);
+                        fontName, fontName, fontName, null, 1.0);*/
+
+        // 7.0.0需要单独引入
+        DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
+        InputStream png = defaultProcessDiagramGenerator.generateDiagram(model,
+                "png",
+                currentActs,
+                new ArrayList<String>(),
+                fontName,
+                fontName,
+                null,
+                1.0d);
+        return png;
     }
 
     @Override
@@ -169,13 +184,25 @@ public class ShowActivitiImageServiceImpl implements ShowActivitiImageService {
                 }
                 // 已执行的线集合
                 List<String> flowIds = getHighLightedFlows(bpmnModel, processDefinitionEntity, resultHistoricActivityInstanceList);
-                // 获取流程图图像字符流
+                /*// 获取流程图图像字符流
                 ProcessDiagramGenerator pec = processEngine.getProcessEngineConfiguration()
                         .getProcessDiagramGenerator();
                 //配置字体
                 imageStream = pec.generateDiagram(bpmnModel,
                         "png", resultExecutedActivityIdList, flowIds,
-                        "宋体", "宋体", "宋体", null, 2.0);
+                        "宋体", "宋体", "宋体", null, 2.0);*/
+
+                // 版本7.0.0需要单独引入
+                DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
+                imageStream = defaultProcessDiagramGenerator.generateDiagram(bpmnModel,
+                        "png",
+                        resultExecutedActivityIdList,
+                        flowIds,
+                        "宋体",
+                        "宋体",
+                        null,
+                        2.0);
+
                 response.setContentType("image/png");
                 OutputStream os = response.getOutputStream();
                 int bytesRead = 0;

@@ -15,7 +15,7 @@
     <description>Activiti_Demo</description>
     <properties>
         <java.version>1.8</java.version>
-        <activiti.version>6.0.0</activiti.version>
+        <activiti.version>7.0.0.SR1</activiti.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
     </properties>
     <dependencies>
@@ -49,11 +49,11 @@
         </dependency>
 
         <!--activiti begin-->
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-basic</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.activiti</groupId>-->
+<!--            <artifactId>activiti-spring-boot-starter-basic</artifactId>-->
+<!--            <version>6.0.0.RC1</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-engine</artifactId>
@@ -64,6 +64,14 @@
             <artifactId>activiti-spring</artifactId>
             <version>${activiti.version}</version>
         </dependency>
+        <!--    activiti7.0.0画图的话需单独引入此依赖    -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-image-generator</artifactId>
+            <version>5.19.0.2</version>
+        </dependency>
+
+
         <!-- mybatisPLUS-->
         <dependency>
             <groupId>com.baomidou</groupId>

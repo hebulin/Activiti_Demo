@@ -1,16 +1,13 @@
 package com.example.activiti_demo;
 
 import lombok.extern.slf4j.Slf4j;
-import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author hebulin
  */
-@SpringBootApplication(exclude = {
-        SecurityAutoConfiguration.class
-})
+@SpringBootApplication
 @Slf4j
 public class ActivitiDemoApplication {
 
